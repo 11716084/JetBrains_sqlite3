@@ -46,5 +46,30 @@ VALUES
       ('dsp'),
        ('')""")
 
+cursor_name.execute("""CREATE TABLE recipes (
+recipe_id INTEGER PRIMARY KEY,
+recipe_name VARCHAR NOT NULL,
+recipe_description VARCHAR
+)""")
+
+conn.commit()
+
+
+insert_recipes = "INSERT INTO recipes (recipe_name, recipe_description) VALUES (?, ?);"
+
+print("Pass the empty recipe name to exit.")
+
+
+def add_recipes(cursor_name, recipe_name, recipe_description):
+    cursor_name.execute(insert_recipes, (recipe_name, recipe_description))
+
+
+while True:
+    recipe_name = input("Recipe name:")
+    if recipe_name != "":
+        recipe_description = input("Recipe description:")
+        add_recipes(cursor_name, recipe_name, recipe_description)
+    else:
+        break
 conn.commit()
 conn.close()
